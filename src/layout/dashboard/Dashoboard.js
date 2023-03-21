@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import DashboardNav from "../../components/DashboardNav";
+import DashboardNav from "./DashboardNav";
 import Sidebar from "./Sidebar";
 
 const Dashboard = () => {

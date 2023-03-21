@@ -4,8 +4,8 @@ import { GrNotification } from "react-icons/gr";
 
 const DashboardNav = () => {
   return (
-    <div>
-      <div className="navbar bg-base-100 px-8 mt-2">
+    <div className="sticky top-0 z-30">
+      <div className="navbar bg-base-100 px-8 mt-2 ">
         <div className="flex-1">
           <div className="form-control">
             <label className="relative block">

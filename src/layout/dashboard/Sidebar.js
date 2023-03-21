@@ -6,26 +6,26 @@ import { RiFileList3Line } from "react-icons/ri";
 
 const Sidebar = () => {
   return (
-    <div className=" col-span-2 h-screen sticky border border-r-2 pl-4">
+    <div className=" col-span-2 h-screen sticky top-0  border border-r-2 pl-4">
       <div className="p-6">
         <img src="/assets/logo.png" alt="" />
       </div>
       <ul className="flex flex-col gap-2 w-full h-full  p-3">
-        <h4 className="text-sm text-[#A7AFBC] ml-3">PAGES</h4>
+        <h4 className="text-sm text-gray-400 ml-3">PAGES</h4>
 
         <li>
           <Link
-            className="hover:bg-[#F0F5FA] text-[#A7AFBC]  transition-all w-full block py-2 px-3 rounded-lg"
+            className="hover:bg-[#F0F5FA] text-gray-500 transition-all w-full block py-2 px-3 rounded-lg"
             to="/dashboard"
           >
             <p className="flex items-center gap-2">
-              <RxDashboard /> <span className="">Dashboard</span>
+              <RxDashboard /> <span>Dashboard</span>
             </p>
           </Link>
         </li>
         <li>
           <Link
-            className="hover:bg-[#F0F5FA] text-[#A7AFBC]  transition-all w-full block py-2 px-3 rounded-lg"
+            className="hover:bg-[#F0F5FA] text-gray-500  transition-all w-full block py-2 px-3 rounded-lg"
             to="users"
           >
             <p className="flex items-center gap-2">
@@ -35,7 +35,7 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
-            className="hover:bg-[#F0F5FA] text-[#A7AFBC]  transition-all w-full block py-2 px-3 rounded-lg"
+            className="hover:bg-[#F0F5FA] text-gray-500  transition-all w-full block py-2 px-3 rounded-lg"
             to="sales"
           >
             <p className="flex items-center gap-2">
