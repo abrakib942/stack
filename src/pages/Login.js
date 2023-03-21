@@ -86,7 +86,7 @@ const Login = () => {
         <div className="divider">OR</div>
 
         <form
-          name="registerForm"
+          name="loginForm"
           noValidate
           className="flex flex-col mt-3 gap-5 justify-center w-[400px]"
           onSubmit={handleSubmit(onSubmit)}
