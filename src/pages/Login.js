@@ -7,21 +7,21 @@ import { toast } from "react-hot-toast";
 import { useLoginUserMutation } from "../app/features/auth/authApi";
 import { MdAlternateEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
-import { RiUserSmileLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillApple } from "react-icons/ai";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please input your name"),
-  email: yup.string().email("invalid email").required("Email required"),
+  email: yup
+    .string()
+    .email("Please Enter a valid email address")
+    .required("Email required"),
   password: yup
     .string()
     .required("Password required")
-    .min(8, "Password is too short - should be 8 letters minimum."),
+    .min(6, "Password is too short - should be 6 letters minimum."),
 });
 
 const defaultValues = {
-  name: "",
   email: "",
   password: "",
 };
@@ -44,7 +44,6 @@ const Login = () => {
     try {
       console.log(data);
       const payloadObj = {
-        name: data?.name,
         email: data?.email,
         password: data?.password,
       };
@@ -52,18 +51,20 @@ const Login = () => {
 
       reset(defaultValues);
     } catch (error) {
-      toast.error("Registration Failed! Please provide valid information");
+      toast.error("Login Failed! No user found");
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success("Registration Successful");
+    if (isError) {
+      toast.error("Login failed! user not found");
+    } else if (isSuccess) {
+      toast.success("Login Successful");
 
       navigate("/");
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccess, navigate, isError]);
 
   return (
     <div className="w-[500px] mx-auto">
@@ -94,8 +95,8 @@ const Login = () => {
             name="email"
             control={control}
             render={({ field }) => (
-              <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <label className="relative block">
+                <span className="absolute top-[14px] left-0 flex items-center pl-3">
                   <MdAlternateEmail className="text-gray-400 h-5 w-5" />
                 </span>
 
@@ -104,10 +105,15 @@ const Login = () => {
                   placeholder="Your Email"
                   className="input input-bordered w-full pl-10"
                   {...field}
-                  error={!!errors.email}
-                  helperText={errors?.email?.message}
+                  // error={!!errors.email}
+                  // helperText={errors?.email?.message}
                   required
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-sm">
+                    {errors.email.message}
+                  </span>
+                )}
               </label>
             )}
           />
@@ -116,8 +122,8 @@ const Login = () => {
             name="password"
             control={control}
             render={({ field }) => (
-              <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <label className="relative block">
+                <span className="absolute top-[14px] left-0 flex items-center pl-3">
                   <AiFillLock className="text-gray-400 h-5 w-5" />
                 </span>
 
@@ -126,10 +132,15 @@ const Login = () => {
                   placeholder="Create Password"
                   className="input input-bordered w-full pl-10"
                   {...field}
-                  error={!!errors.password}
-                  helperText={errors?.password?.message}
+                  // error={!!errors.password}
+                  // helperText={errors?.password?.message}
                   required
                 />
+                {errors.password && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </span>
+                )}
               </label>
             )}
           />

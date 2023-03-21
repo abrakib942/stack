@@ -12,17 +12,20 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillApple } from "react-icons/ai";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Please input your name"),
-  email: yup.string().email("invalid email").required("Email required"),
+  email: yup
+    .string()
+    .email("Please Enter a valid email address")
+    .required("Email Required"),
+  name: yup.string().required("Please Enter your name"),
   password: yup
     .string()
-    .required("Password required")
-    .min(8, "Password is too short - should be 8 letters minimum."),
+    .required("Please enter password")
+    .min(6, "Password is too short - should be 6 letters minimum."),
 });
 
 const defaultValues = {
-  name: "",
   email: "",
+  name: "",
   password: "",
 };
 
@@ -44,8 +47,8 @@ const Register = () => {
     try {
       console.log(data);
       const payloadObj = {
-        name: data?.name,
         email: data?.email,
+        name: data?.name,
         password: data?.password,
       };
       registerUser(payloadObj);
@@ -58,12 +61,19 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isError) {
+      toast.error(
+        `Registration Failed! Only defined users succeed registration. Find user list here: https://reqres.in`,
+        {
+          duration: 8000,
+        }
+      );
+    } else if (isSuccess) {
       toast.success("Registration Successful");
 
       navigate("/");
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccess, isError, navigate]);
 
   return (
     <div className="w-[500px] mx-auto">
@@ -94,8 +104,8 @@ const Register = () => {
             name="email"
             control={control}
             render={({ field }) => (
-              <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <label className="relative block">
+                <span className="absolute left-0 top-[14px] flex items-center pl-3">
                   <MdAlternateEmail className="text-gray-400 h-5 w-5" />
                 </span>
 
@@ -104,10 +114,15 @@ const Register = () => {
                   placeholder="Your Email"
                   className="input input-bordered w-full pl-10"
                   {...field}
-                  error={!!errors.email}
-                  helperText={errors?.email?.message}
+                  // error={!!errors.email}
+                  // helperText={errors?.email?.message}
                   required
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-sm">
+                    {errors.email.message}
+                  </span>
+                )}
               </label>
             )}
           />
@@ -115,8 +130,8 @@ const Register = () => {
             name="name"
             control={control}
             render={({ field }) => (
-              <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <label className="relative block">
+                <span className="absolute top-[14px] left-0 flex items-center pl-3">
                   <RiUserSmileLine className="text-gray-400 h-5 w-5" />
                 </span>
 
@@ -125,10 +140,15 @@ const Register = () => {
                   placeholder="Your Name"
                   className="input input-bordered w-full pl-10"
                   {...field}
-                  error={!!errors.name}
-                  helperText={errors?.name?.message}
+                  // error={!!errors.name}
+                  // helperText={errors?.name?.message}
                   required
                 />
+                {errors.name && (
+                  <span className="text-red-500 text-sm">
+                    {errors.name.message}
+                  </span>
+                )}
               </label>
             )}
           />
@@ -137,20 +157,25 @@ const Register = () => {
             name="password"
             control={control}
             render={({ field }) => (
-              <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <label className="relative block">
+                <span className="absolute top-[14px] left-0 flex items-center pl-3">
                   <AiFillLock className="text-gray-400 h-5 w-5" />
                 </span>
 
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Create Password"
                   className="input input-bordered w-full pl-10"
                   {...field}
-                  error={!!errors.password}
-                  helperText={errors?.password?.message}
+                  // error={!!errors.password}
+                  // helperText={errors?.password?.message}
                   required
                 />
+                {errors.password && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </span>
+                )}
               </label>
             )}
           />
