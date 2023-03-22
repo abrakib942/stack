@@ -46,7 +46,6 @@ const Register = () => {
 
   const onSubmit = (data) => {
     try {
-      console.log(data);
       const payloadObj = {
         email: data?.email,
         name: data?.name,
@@ -57,7 +56,6 @@ const Register = () => {
       reset(defaultValues);
     } catch (error) {
       toast.error("Registration Failed! Please provide valid information");
-      console.log(error);
     }
   };
 

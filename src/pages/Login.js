@@ -33,8 +33,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  console.log("login", loginData);
-
   const { handleSubmit, formState, control, reset } = useForm({
     mode: "onChange",
     defaultValues,
@@ -45,7 +43,6 @@ const Login = () => {
 
   const onSubmit = (data) => {
     try {
-      console.log(data);
       const payloadObj = {
         email: data?.email,
         password: data?.password,
@@ -55,7 +52,6 @@ const Login = () => {
       reset(defaultValues);
     } catch (error) {
       toast.error("Login Failed! No user found");
-      console.log(error);
     }
   };
 
