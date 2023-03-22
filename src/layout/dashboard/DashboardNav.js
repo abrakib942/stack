@@ -1,8 +1,21 @@
 import React from "react";
 import { BsSearch } from "react-icons/bs";
 import { GrNotification } from "react-icons/gr";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { userLoggedOut } from "../../app/features/auth/authSlice";
 
 const DashboardNav = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(userLoggedOut());
+    localStorage.clear();
+
+    // navigate("/login");
+  };
+
   return (
     <div className="sticky top-0 z-30">
       <div className="navbar bg-base-100 px-8 mt-2 ">
@@ -33,7 +46,7 @@ const DashboardNav = () => {
               tabIndex={0}
               className="mt-3 p-2 menu menu-compact dropdown-content hover:bg-[#F0F5FA] "
             >
-              <li>
+              <li className="cursor-pointer" onClick={logout}>
                 <p>Logout</p>
               </li>
             </ul>

@@ -10,6 +10,7 @@ import { AiFillLock } from "react-icons/ai";
 import { RiUserSmileLine } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillApple } from "react-icons/ai";
+import Loading from "../components/Loading";
 
 const schema = yup.object().shape({
   email: yup
@@ -71,9 +72,15 @@ const Register = () => {
     } else if (isSuccess) {
       toast.success("Registration Successful");
 
-      navigate("/");
+      if (registerUser?.token) {
+        navigate("/dashboard/users");
+      }
     }
-  }, [isSuccess, isError, navigate]);
+  }, [isSuccess, isError, navigate, registerUser]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="w-[500px] mx-auto">

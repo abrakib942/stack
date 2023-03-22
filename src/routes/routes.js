@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import PrivateRoute from "../components/PrivateRoute";
+import PublicRoute from "../components/PublicRoute";
 import Dashboard from "../layout/dashboard/Dashoboard";
 import Main from "../layout/main/Main";
 import Users from "../pages/dashboard/Users";
@@ -12,26 +14,46 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Register />,
+        element: (
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        ),
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
     ],
   },
 
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <PrivateRoute>
+            <Users />
+          </PrivateRoute>
+        ),
       },
       {
         path: "sales",

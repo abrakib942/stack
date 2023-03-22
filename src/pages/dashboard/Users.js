@@ -1,9 +1,14 @@
 import React from "react";
 import { useGetUsersQuery } from "../../app/features/user/userApi";
 import { BsThreeDots } from "react-icons/bs";
+import Loading from "../../components/Loading";
 
 const Users = () => {
   const { data: userData, isError, isLoading } = useGetUsersQuery();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>

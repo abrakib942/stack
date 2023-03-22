@@ -9,6 +9,7 @@ import { MdAlternateEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillApple } from "react-icons/ai";
+import Loading from "../components/Loading";
 
 const schema = yup.object().shape({
   email: yup
@@ -31,6 +32,8 @@ const Login = () => {
     useLoginUserMutation();
 
   const navigate = useNavigate();
+
+  console.log("login", loginData);
 
   const { handleSubmit, formState, control, reset } = useForm({
     mode: "onChange",
@@ -62,9 +65,15 @@ const Login = () => {
     } else if (isSuccess) {
       toast.success("Login Successful");
 
-      navigate("/");
+      if (loginData?.token) {
+        navigate("/dashboard/users");
+      }
     }
-  }, [isSuccess, navigate, isError]);
+  }, [isSuccess, navigate, isError, loginData]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="w-[500px] mx-auto">
